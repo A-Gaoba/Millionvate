@@ -19,16 +19,16 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/50 backdrop-blur-xl supports-[backdrop-filter]:bg-white/40">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-700 bg-gray-900/80 backdrop-blur-xl supports-[backdrop-filter]:bg-gray-900/60">
+      <div className="container mx-auto flex h-16 items-center justify-between px-6">
         <Link href="#home" className="flex items-baseline gap-2">
           <M.span
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading text-xl tracking-tight"
+            className="font-heading text-xl tracking-tight text-white"
           >
-            Millionvate
+            <span className="gold-gradient-text text-2xl font-black">M</span>illionvate
           </M.span>
         </Link>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="group relative text-sm font-medium text-neutral-800 transition-colors hover:text-[#FFD700]"
+              className="group relative text-sm font-medium text-gray-300 transition-colors hover:text-[#FFD700]"
             >
               {item.label}
               <span className="absolute inset-x-0 -bottom-1 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-[#E6C200] via-[#FFD700] to-[#E6C200] transition-transform duration-300 group-hover:scale-x-100" />
@@ -48,26 +48,24 @@ export default function Navbar() {
           </Button>
 
           <div className="ms-2 flex items-center">
-            <div className="lang-switcher group inline-flex overflow-hidden rounded-full border border-black/10 bg-white/60 p-1 backdrop-blur">
+            <div className="lang-switcher group inline-flex overflow-hidden rounded-full border border-gray-600 bg-gray-800/60 p-1 backdrop-blur">
               <button
                 onClick={() => setLang("en")}
                 aria-pressed={lang === "en"}
-                className={`px-3 py-1.5 text-xs font-semibold transition ${
-                  lang === "en"
-                    ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
-                    : "text-neutral-700 hover:text-black"
-                }`}
+                className={`px-3 py-1.5 text-xs font-semibold transition ${lang === "en"
+                  ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
+                  : "text-gray-400 hover:text-white"
+                  }`}
               >
                 EN
               </button>
               <button
                 onClick={() => setLang("ar")}
                 aria-pressed={lang === "ar"}
-                className={`px-3 py-1.5 text-xs font-semibold transition ${
-                  lang === "ar"
-                    ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
-                    : "text-neutral-700 hover:text-black"
-                }`}
+                className={`px-3 py-1.5 text-xs font-semibold transition ${lang === "ar"
+                  ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
+                  : "text-gray-400 hover:text-white"
+                  }`}
               >
                 AR
               </button>
@@ -81,22 +79,22 @@ export default function Navbar() {
               <Button
                 variant="outline"
                 size="icon"
-                className="glass border-black/10 bg-white/40 hover:text-[#FFD700]"
+                className="glass border-gray-600 bg-gray-800/40 hover:text-[#FFD700] hover:bg-gray-700/60"
                 aria-label="Open navigation"
               >
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side={dir === "rtl" ? "left" : "right"} className="w-80">
+            <SheetContent side={dir === "rtl" ? "left" : "right"} className="w-80 bg-gray-900 border-gray-700">
               <SheetHeader>
-                <SheetTitle className="text-left">Millionvate</SheetTitle>
+                <SheetTitle className="text-left text-white">Millionvate</SheetTitle>
               </SheetHeader>
               <div className="mt-6 grid gap-3">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-md px-3 py-2 text-sm font-medium hover:text-[#FFD700]"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-[#FFD700] hover:bg-gray-800 transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -104,26 +102,24 @@ export default function Navbar() {
                 <Button asChild className="mt-2 btn-gold shadow-gold-3d">
                   <Link href="#newsletter">{t("nav.cta")}</Link>
                 </Button>
-                <div className="mt-2 inline-flex overflow-hidden rounded-full border border-black/10 bg-white/60 p-1 backdrop-blur">
+                <div className="mt-2 inline-flex overflow-hidden rounded-full border border-gray-600 bg-gray-800/60 p-1 backdrop-blur">
                   <button
                     onClick={() => setLang("en")}
                     aria-pressed={lang === "en"}
-                    className={`px-3 py-1.5 text-xs font-semibold transition ${
-                      lang === "en"
-                        ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
-                        : "text-neutral-700 hover:text-black"
-                    }`}
+                    className={`px-3 py-1.5 text-xs font-semibold transition ${lang === "en"
+                      ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
+                      : "text-gray-400 hover:text-white"
+                      }`}
                   >
                     EN
                   </button>
                   <button
                     onClick={() => setLang("ar")}
                     aria-pressed={lang === "ar"}
-                    className={`px-3 py-1.5 text-xs font-semibold transition ${
-                      lang === "ar"
-                        ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
-                        : "text-neutral-700 hover:text-black"
-                    }`}
+                    className={`px-3 py-1.5 text-xs font-semibold transition ${lang === "ar"
+                      ? "rounded-full bg-[#FFD700] text-black shadow-gold-inset"
+                      : "text-gray-400 hover:text-white"
+                      }`}
                   >
                     AR
                   </button>

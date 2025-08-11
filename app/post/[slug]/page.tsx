@@ -8,6 +8,25 @@ import { M, MotionSection, fadeInUp, staggerChildren } from "@/components/motion
 import articlesEn from "@/data/articles.en.json"
 import articlesAr from "@/data/articles.ar.json"
 
+// Helper function to convert YouTube URLs to embed format
+function convertToEmbedUrl(url: string): string {
+  if (url.includes('youtube.com/embed/')) {
+    return url; // Already in embed format
+  }
+
+  if (url.includes('youtu.be/')) {
+    const videoId = url.split('youtu.be/')[1].split('?')[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  if (url.includes('youtube.com/watch?v=')) {
+    const videoId = url.split('v=')[1].split('&')[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  return url; // Return as is if it's already in embed format
+}
+
 export default function PostPage() {
   const { slug } = useParams<{ slug: string }>()
   const { t, lang } = useI18n()
@@ -17,10 +36,10 @@ export default function PostPage() {
 
   if (!article) {
     return (
-      <main className="container mx-auto px-4 py-16">
-        <p className="text-center text-lg">Post not found.</p>
-        <div className="mt-4 text-center">
-          <Link href="/" className="underline hover:text-[#FFD700]">
+      <main className="container mx-auto px-6 py-20">
+        <p className="text-center text-lg text-gray-300">Post not found.</p>
+        <div className="mt-6 text-center">
+          <Link href="/" className="underline hover:text-[#FFD700] text-gray-300">
             Home
           </Link>
         </div>
@@ -29,22 +48,22 @@ export default function PostPage() {
   }
 
   return (
-    <main className="bg-white">
-      <MotionSection className="border-b border-black/10 bg-white">
-        <div className="container mx-auto grid gap-10 px-4 py-10 lg:grid-cols-[2fr_1fr] lg:gap-12">
+    <main className="bg-gray-900 min-h-screen">
+      <MotionSection className="border-b border-gray-700 bg-gray-900">
+        <div className="container mx-auto grid gap-12 px-6 py-16 lg:grid-cols-[2fr_1fr] lg:gap-16">
           <div>
-            <M.nav variants={fadeInUp} className="mb-4">
+            <M.nav variants={fadeInUp} className="mb-6">
               <Link
                 href="/#articles"
-                className="text-sm text-neutral-700 underline-offset-4 hover:text-[#FFD700] hover:underline"
+                className="text-sm text-gray-400 underline-offset-4 hover:text-[#FFD700] hover:underline transition-colors"
               >
                 {t("post.back")}
               </Link>
             </M.nav>
-            <M.h1 variants={fadeInUp} className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <M.h1 variants={fadeInUp} className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl mb-6">
               <span className="gold-gradient-text">{article.title}</span>
             </M.h1>
-            <M.div variants={fadeInUp} className="mt-3 flex flex-wrap items-center gap-3 text-sm text-neutral-600">
+            <M.div variants={fadeInUp} className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-8">
               <span>
                 {t("post.published")}: {new Date(article.date).toLocaleDateString(lang === "ar" ? "ar" : "en-US")}
               </span>
@@ -55,31 +74,34 @@ export default function PostPage() {
               <span>•</span>
               <span>{article.author}</span>
             </M.div>
-            <M.div
-              variants={fadeInUp}
-              className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-black/10 shadow-lg"
-            >
-              <Image src={article.image || "/placeholder.svg"} alt={article.title} fill className="object-cover" />
-            </M.div>
 
-            {article.slug === "from-employee-to-millionaire" && (
+            {/* Display video if available, otherwise show image */}
+            {article.video ? (
               <M.div
                 variants={fadeInUp}
-                className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-black/10 shadow-lg"
+                className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-gray-600 shadow-2xl bg-gray-800"
               >
                 <iframe
                   className="h-full w-full"
-                  src="https://www.youtube.com/embed/O8WIdjRk10o?si=EE5NCBe6h-Nx4ZKV"
-                  title="From 9–5 Employee to Millionaire: The 10 Steps That Changed My Life"
+                  src={convertToEmbedUrl(article.video)}
+                  title={article.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               </M.div>
+            ) : (
+              <M.div
+                variants={fadeInUp}
+                className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-gray-600 shadow-2xl bg-gray-800"
+              >
+                <Image src={article.image || "/placeholder.svg"} alt={article.title} fill className="object-cover" />
+              </M.div>
             )}
-            <M.article variants={staggerChildren} className="prose prose-neutral max-w-none text-start sm:prose-lg">
-              <div className="mt-8 space-y-6">
+
+            <M.article variants={staggerChildren} className="prose prose-neutral max-w-none text-start sm:prose-lg lg:prose-xl mt-12">
+              <div className="space-y-8">
                 {article.content.map((p: string, i: number) => (
-                  <M.p key={i} variants={fadeInUp} className="text-neutral-800">
+                  <M.p key={i} variants={fadeInUp} className="text-gray-300 leading-relaxed text-lg">
                     {p}
                   </M.p>
                 ))}
@@ -87,16 +109,19 @@ export default function PostPage() {
             </M.article>
           </div>
 
-          <aside className="lg:border-s lg:border-black/10 lg:ps-8">
-            <div className="rounded-2xl border border-black/10 p-4 shadow-sm">
-              <h3 className="font-heading text-lg font-semibold">Related</h3>
-              <ul className="mt-3 space-y-3">
+          <aside className="lg:border-s lg:border-gray-700 lg:ps-8">
+            <div className="rounded-2xl border border-gray-700 p-6 shadow-xl bg-gray-800">
+              <h3 className="font-heading text-xl font-semibold text-white mb-4">Related Articles</h3>
+              <ul className="space-y-4">
                 {articleData
                   .filter((a) => a.slug !== article.slug)
                   .slice(0, 3)
                   .map((rel) => (
                     <li key={rel.slug}>
-                      <Link href={`/post/${rel.slug}`} className="hover:text-[#FFD700]">
+                      <Link
+                        href={`/post/${rel.slug}`}
+                        className="text-gray-300 hover:text-[#FFD700] transition-colors duration-200 block py-2 px-3 rounded-lg hover:bg-gray-700"
+                      >
                         {rel.title}
                       </Link>
                     </li>
