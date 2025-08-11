@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/next"
 import Providers from "@/components/providers"
 import { Poppins, Montserrat, Cairo, Tajawal } from "next/font/google"
 
@@ -55,7 +56,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           "antialiased bg-gray-900 text-white selection:bg-[#FFD700] selection:text-black",
         ].join(" ")}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )
