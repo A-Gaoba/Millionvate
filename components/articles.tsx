@@ -41,7 +41,7 @@ export default function Articles() {
               <Card className="group overflow-hidden border-gray-700 bg-gray-800 transition-all duration-300 will-change-transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#FFD700]/20 hover:glow-gold hover:border-gray-600">
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <Image
-                    src={article.image || "/placeholder.svg"}
+                    src={article.image || "/articles/getrich.png"}
                     alt={article.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"

@@ -1,0 +1,13 @@
+This is a placeholder for the icon.png file.
+
+The actual PNG icon should be generated from the icon.svg file and should contain:
+- A 128x128 pixel golden "M" icon
+- Dark background (#1F2937) with golden border
+- Golden gradient "M" letter with glow effects
+- Professional appearance suitable for favicon and app icons
+
+To generate the PNG:
+1. Open icon.svg in a vector graphics editor (like Inkscape, Figma, or Adobe Illustrator)
+2. Export as PNG at 128x128 pixels
+3. Ensure high quality and crisp edges
+4. The icon should work well at both small (favicon) and large sizes

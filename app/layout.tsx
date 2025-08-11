@@ -32,7 +32,14 @@ const tajawal = Tajawal({
 export const metadata: Metadata = {
   title: "Millionvate — Inspiring Your Millionaire Mindset",
   description: "Millionvate focuses on inspiring a millionaire mindset, personal growth, and financial success.",
-  icons: { icon: "/favicon.ico" },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', type: 'image/x-icon' }
+    ],
+    apple: '/icon.svg',
+    shortcut: '/favicon.svg'
+  },
   generator: 'v0.dev'
 }
 
